@@ -1,71 +1,83 @@
-Drone Teslimat Optimizasyonu
-Bu proje, birden fazla drone ile teslimat yapılırken uçuş yasağı bölgelerinden kaçınarak teslimat sürelerini ve enerji tüketimini minimize eden, aynı zamanda drone kapasite ve zaman kısıtlamalarını dikkate alan bir rota optimizasyonu sistemini geliştirmeyi amaçlamaktadır.
+Drone Teslimat Optimizasyonu Sistemi
+Bu proje, çoklu drone'lar kullanarak teslimat rotalarını optimize eden gelişmiş bir algoritma sistemidir. A* yol bulma algoritması, Constraint Satisfaction Problem (CSP) ve Genetik Algoritma tekniklerini birleştirerek, no-fly zone'lardan kaçınan optimal teslimat rotaları oluşturur.
 
-Proje Amacı
-Bu proje, drone teslimat sistemleri için optimizasyon çözümleri sunmak amacıyla geliştirilmiştir. Amaç, drone'ların çeşitli kısıtlamalarla (batarya kapasitesi, taşıma kapasitesi, teslimat zaman pencereleri ve no-fly zone'lar) güvenli ve verimli rotalar çizmesidir. Aşağıdaki faktörler göz önünde bulundurulmuştur:
+🚁 Özellikler
+Çoklu Drone Desteği: Farklı kapasitelerde birden fazla drone ile eşzamanlı teslimat
+No-Fly Zone Kaçınma: A* algoritması ile yasak bölgelerden kaçınan güvenli rota planlama
+Akıllı Optimizasyon: Genetik algoritma ile enerji tüketimi ve teslimat süresini minimize etme
+Gerçek Zamanlı Kısıtlamalar: Ağırlık limitleri, batarya kapasitesi ve zaman penceresi kontrolü
+Görselleştirme: Rotaların ve no-fly zone'ların interaktif harita görünümü
+Performans Analizi: Detaylı algoritma performans raporları
+📋 Gereksinimler
+pip install matplotlib numpy
+🚀 Kullanım
+Temel Kullanım
+python drone_delivery_optimization.py
+Özel Senaryo Oluşturma
+from drone_delivery_optimization import *
 
-Drone Kapasitesi ve Batarya: Her drone'un taşıma kapasitesi ve batarya sınırları.
+# Drone'ları tanımla
+drones = [
+    Drone(id=0, max_weight=10.0, battery=10000, speed=12.0, start_pos=(50, 50)),
+    Drone(id=1, max_weight=8.0, battery=8000, speed=10.0, start_pos=(20, 80))
+]
 
-No-Fly Zone: Uçuş yasağı bölgelerinden kaçınılması gerekmektedir.
+# Teslimat noktalarını tanımla
+deliveries = [
+    DeliveryPoint(id=0, pos=(30, 40), weight=2.5, priority=5, 
+                  time_window=(datetime.time(9, 0), datetime.time(17, 0))),
+    DeliveryPoint(id=1, pos=(70, 60), weight=1.8, priority=3,
+                  time_window=(datetime.time(10, 0), datetime.time(16, 0)))
+]
 
-Teslimat Zaman Penceresi: Teslimatlar belirli zaman dilimlerinde yapılmalıdır.
+# No-fly zone'ları tanımla
+noflyzones = [
+    NoFlyZone(id=0, coordinates=[(40, 40), (60, 40), (60, 60), (40, 60)],
+              active_time=(datetime.time(0, 0), datetime.time(23, 59)))
+]
 
-Enerji Tüketimi: Rotalar enerji verimliliğine göre optimize edilmiştir.
+# Optimizasyonu çalıştır
+best_routes, algorithm_time = genetic_algorithm(drones, deliveries, noflyzones)
 
-Proje, A* algoritması ve genetik algoritma kullanılarak rotaların optimize edilmesini sağlar.
+# Sonuçları görselleştir
+plot_routes(best_routes, noflyzones, deliveries)
 
-Kullanılan Teknolojiler
-Bu proje aşağıdaki teknolojiler ve kütüphaneleri kullanmaktadır:
+📊 Performans Metrikleri
+Sistem aşağıdaki metrikleri takip eder:
 
-Python 3.x: Programlama dili
+Teslimat Başarı Oranı: Tamamlanan teslimat yüzdesi
+Ortalama Enerji Tüketimi: Drone başına enerji kullanımı
+Toplam Mesafe: Tüm rotaların toplam uzunluğu
+Algoritma Çalışma Süresi: Optimizasyon süre performansı
+🎯 Örnek Senaryolar
+Senaryo 1: Küçük Ölçekli Teslimat
+5 Drone
+20 Teslimat Noktası
+2 No-Fly Zone
+Senaryo 2: Büyük Ölçekli Teslimat
+10 Drone
+50 Teslimat Noktası
+5 No-Fly Zone
+📈 Zaman Karmaşıklığı
+A Algoritması*: O(E log V)
+Genetik Algoritma: O(G × P × D × A)
+Toplam Karmaşıklık: O(G × P × D × T × E log V)
+Burada:
 
-matplotlib: Görselleştirme ve grafikler için
+G = Nesil sayısı
+P = Popülasyon boyutu
+D = Drone sayısı
+T = Teslimat sayısı
+E = Kenar sayısı
+V = Düğüm sayısı
 
-numpy: Matematiksel işlemler ve veri işleme için
+🎨 Görselleştirme
+Sistem, matplotlib kullanarak aşağıdaki görselleştirmeleri sağlar:
 
-heapq: A* algoritması için öncelikli kuyruk (priority queue) yönetimi
-
-datetime: Teslimat zaman pencereleri ve uçuş yasağı sürelerinin yönetimi
-
-Başlangıç
-Projeyi çalıştırmak için aşağıdaki adımları takip edebilirsiniz:
-
-1. Gereksinimler
-Projenin çalışabilmesi için öncelikle Python 3.x'in sisteminizde yüklü olduğundan emin olun. Gerekli Python kütüphanelerini yüklemek için aşağıdaki komutu kullanabilirsiniz:
-
-bash
-Kopyala
-pip install -r requirements.txt
-2. Verilerin Hazırlanması
-Projede rastgele drone, teslimat noktası ve no-fly zone verileri üretilmiştir. generate_random_drones, generate_random_deliveries ve generate_random_noflyzones fonksiyonları, veri üretimini sağlar. Eğer kendi verilerinizi kullanmak isterseniz, bu fonksiyonları düzenleyebilirsiniz.
-
-3. Projeyi Çalıştırma
-Projeyi çalıştırmak için ana fonksiyonu çalıştırabilirsiniz. main() fonksiyonu, senaryoları başlatır, rotaları optimize eder, performansı analiz eder ve sonuçları görselleştirir.
-
-bash
-Kopyala
-python drone_optimization.py
-4. Çıktılar
-Optimizasyon sonucunda drone’ların rotaları ve teslimat bilgileri görselleştirilir.
-
-Performans analizi yapılır (tamamlanan teslimat oranı, enerji tüketimi, mesafe vb.).
-
-Kullanım
-Genetik Algoritma: Drone’lara teslimatları rastgele dağıtmak için genetik algoritma kullanılır. Teslimat noktaları, drone’ların kapasite ve batarya sınırlarına göre sıralanır.
-
-A Algoritması:* Her drone’un teslimat noktası arasında güvenli bir yol oluşturmak için A* algoritması kullanılır. A* algoritması, no-fly zone'ları ve teslimat önceliklerini dikkate alır.
-
-Performans Analizi: Tamamlanan teslimat sayısı, enerji tüketimi, mesafe ve algoritma çalışma süresi gibi metrikler raporlanır.
-
-Algoritmalar ve Modeller
-A* Algoritması:
-A* algoritması, başlangıç ve hedef noktası arasındaki en kısa rotayı bulmak için kullanılan bir yol planlama algoritmasıdır. Bu projede, uçuş yasağı bölgelerinden kaçınmak için ek bir ceza uygulanarak, güvenli ve optimal rotalar oluşturulmuştur.
-
-Genetik Algoritma:
-Teslimatları en verimli şekilde dağıtmak için genetik algoritmalar kullanılır. Bu algoritma, başlangıç popülasyonu oluşturur, ebeveynler arasında çaprazlama ve mutasyon işlemleri yapar, ve uygunluk fonksiyonlarına göre en iyi çözümü bulur.
-
-No-Fly Zone:
-No-fly zone'lar, çokgen olarak tanımlanır ve her drone, teslimat rotası boyunca bu bölgelerden kaçınmak zorundadır. A* algoritması, yolun bu bölgelerle kesişip kesişmediğini kontrol eder.
+Drone Rotaları: Her drone için farklı renkte rota çizgileri
+No-Fly Zone'lar: Kırmızı dolgulu yasak bölgeler
+Teslimat Noktaları: Renkli işaretçilerle teslimat konumları
+Başlangıç Noktaları: Drone üslerinin konumları
 ![image](https://github.com/user-attachments/assets/4cbaaa48-7b29-46a2-a27e-60d9578f6ba6)
 ![image](https://github.com/user-attachments/assets/86509dd1-3364-4d4c-a01e-5948ad8824b7)
 ![image](https://github.com/user-attachments/assets/39ce3f68-5dcc-410a-9cb0-5bbdc2ed389a)
