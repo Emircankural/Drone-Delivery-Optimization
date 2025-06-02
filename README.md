@@ -1,4 +1,4 @@
-#Drone Teslimat Optimizasyonu Sistemi
+# Drone Teslimat Optimizasyonu Sistemi
 Bu proje, çoklu drone'lar kullanarak teslimat rotalarını optimize eden gelişmiş bir algoritma sistemidir. A* yol bulma algoritması, Constraint Satisfaction Problem (CSP) ve Genetik Algoritma tekniklerini birleştirerek, no-fly zone'lardan kaçınan optimal teslimat rotaları oluşturur.
 
 🚁 Özellikler
