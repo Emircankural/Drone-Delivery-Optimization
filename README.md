@@ -1,21 +1,6 @@
 Drone Teslimat Optimizasyonu
 Bu proje, birden fazla drone ile teslimat yapılırken uçuş yasağı bölgelerinden kaçınarak teslimat sürelerini ve enerji tüketimini minimize eden, aynı zamanda drone kapasite ve zaman kısıtlamalarını dikkate alan bir rota optimizasyonu sistemini geliştirmeyi amaçlamaktadır.
 
-İçindekiler:
-Proje Amacı
-
-Kullanılan Teknolojiler
-
-Başlangıç
-
-Kullanım
-
-Algoritmalar ve Modeller
-
-Katkıda Bulunma
-
-Lisans
-
 Proje Amacı
 Bu proje, drone teslimat sistemleri için optimizasyon çözümleri sunmak amacıyla geliştirilmiştir. Amaç, drone'ların çeşitli kısıtlamalarla (batarya kapasitesi, taşıma kapasitesi, teslimat zaman pencereleri ve no-fly zone'lar) güvenli ve verimli rotalar çizmesidir. Aşağıdaki faktörler göz önünde bulundurulmuştur:
 
