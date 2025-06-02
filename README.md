@@ -8,8 +8,10 @@ Akıllı Optimizasyon: Genetik algoritma ile enerji tüketimi ve teslimat süres
 Gerçek Zamanlı Kısıtlamalar: Ağırlık limitleri, batarya kapasitesi ve zaman penceresi kontrolü
 Görselleştirme: Rotaların ve no-fly zone'ların interaktif harita görünümü
 Performans Analizi: Detaylı algoritma performans raporları
+
 📋 Gereksinimler
 pip install matplotlib numpy
+
 🚀 Kullanım
 Temel Kullanım
 python drone_delivery_optimization.py
