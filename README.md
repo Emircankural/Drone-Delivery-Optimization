@@ -13,10 +13,15 @@ Performans Analizi: Detaylı algoritma performans raporları
 pip install matplotlib numpy
 
 🚀 Kullanım
-Temel Kullanım
-python drone_delivery_optimization.py
-Özel Senaryo Oluşturma
-from drone_delivery_optimization import *
+# Projeyi klonlayın
+git clone https://github.com/kullaniciadi/drone-delivery-optimization.git
+cd drone-delivery-optimization
+
+# Gerekli kütüphaneleri yükleyin
+pip install matplotlib numpy
+
+# Programı çalıştırın
+python drone_optimization.py
 
 # Drone'ları tanımla
 drones = [
